@@ -1,6 +1,6 @@
 // 以全新的暫存資料夾啟動 server.mjs，測試結束後刪除。
 import { spawn } from 'node:child_process';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { createServer, request } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -20,12 +20,16 @@ function freePort() {
 
 export async function startServer({ viewCode = testViewCode, env = {} } = {}) {
   const dataDir = mkdtempSync(join(tmpdir(), 'tel-console-test-'));
+  // 真正的音效是第三方檔案、不在 git 裡；測試放幾個假的 mp3，讓測試不依賴下載。
+  const soundDir = join(dataDir, 'test-sounds');
+  mkdirSync(soundDir);
+  for (const name of ['start', 'resume', 'warning', 'end']) writeFileSync(join(soundDir, name + '.mp3'), Buffer.from('ID3 test sound'));
   const port = await freePort();
   const publicPort = await freePort();
   const child = spawn(process.execPath, ['server.mjs'], {
     cwd: root,
     env: { ...process.env, PORT: String(port), PUBLIC_PORT: String(publicPort), DATA_DIR: dataDir,
-      VIEW_CODE: viewCode, EDIT_CODE: '', REFEREE_CODE: '', ACCESS_CODE: '', ...env },
+      VIEW_CODE: viewCode, EDIT_CODE: '', REFEREE_CODE: '', ACCESS_CODE: '', SOUNDS_DIR: soundDir, ...env },
   });
   let output = '';
   await new Promise((resolve, reject) => {

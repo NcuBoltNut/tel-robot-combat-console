@@ -32,9 +32,11 @@ const publicHost = (process.env.PUBLIC_HOST ?? '').trim().toLowerCase();
 
 // 資料預設放在 %LOCALAPPDATA%\tel-robot-combat，避開 OneDrive 同步時鎖定或損毀 SQLite 檔。
 const here = fileURLToPath(new URL('.', import.meta.url));
-// 比賽音效（觀賽畫面與直播字卡用）：開始、第 60 秒手動開始、剩 30 秒、結束。啟動時讀進記憶體。
+// 比賽音效（觀賽畫面、主審控制台、直播字卡）：開始、第 60 秒手動開始、剩 30 秒、結束。啟動時讀進記憶體。
+// 預設讀專案的 sounds/（音效不放進 git，見 sounds/README.md）；可用 SOUNDS_DIR 指定別的資料夾。缺檔時回 404。
+const soundDir = process.env.SOUNDS_DIR ? resolve(process.env.SOUNDS_DIR) : join(here, 'sounds');
 const sounds = new Map(['start', 'resume', 'warning', 'end'].map((name) => {
-  const file = join(here, 'sounds', name + '.mp3');
+  const file = join(soundDir, name + '.mp3');
   return [name, existsSync(file) ? readFileSync(file) : null];
 }));
 const legacyDir = join(here, 'data');

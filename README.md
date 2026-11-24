@@ -125,6 +125,7 @@ tailscale funnel --bg --https=10000 3080      # 公開到網際網路（手機�
 | `DATA_DIR` | `%LOCALAPPDATA%\tel-robot-combat` | 資料庫、通行碼、備份、紀錄的位置。**不要放在 OneDrive／Dropbox** |
 | `VIEW_CODE` | （自動產生） | 指定檢視通行碼 |
 | `TEL_TEAMS` | 四隊 | 參賽隊伍，逗號分隔，4 或 5 隊 |
+| `SOUNDS_DIR` | 專案的 `sounds/` | 比賽音效的資料夾 |
 | `CHROME_PATH` | （自動尋找） | 瀏覽器測試用的 Chrome／Edge 位置 |
 
 ## 資料與備份
