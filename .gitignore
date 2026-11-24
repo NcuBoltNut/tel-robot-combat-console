@@ -1,0 +1,18 @@
+# 執行資料與機密：資料庫、通行碼、登入、備份、紀錄（資料預設在 %LOCALAPPDATA%\tel-robot-combat\，這裡防萬一）
+data/
+*.sqlite
+*.sqlite-*
+access-codes.json
+logs/
+backups/
+node_modules/
+
+# 第三方著作，不放進 git：比賽音效與官方規則（取得方式見 sounds/README.md、docs/README.md）
+sounds/*.mp3
+docs/*.pdf
+
+# 編輯器與系統檔
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

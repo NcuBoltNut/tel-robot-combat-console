@@ -1,0 +1,14 @@
+{
+  "name": "tel-robot-combat-console",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --env-file=tests/five-teams.env --test --test-concurrency=1 \"tests/*.test.mjs\"",
+    "sounds": "node scripts/fetch-sounds.mjs"
+  },
+  "description": "機器人模擬賽的賽務控制台：賽程、計分、計時、觀賽畫面、直播字卡。Node.js 24+，無外部套件。"
+}
